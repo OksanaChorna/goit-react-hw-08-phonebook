@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Container from './components/Container';
 import contactsOperations from './redux/contacts/contacts-operations';
 import AppBarComp from './components/AppBar/AppBar';
 import HomePage from './pages/HomePage';
@@ -16,7 +15,7 @@ class App extends Component {
 
   render() {
     return (
-      <Container>
+      <>
         <AppBarComp />
         <Switch>
           <Route exact path="/" component={HomePage} />
@@ -25,7 +24,7 @@ class App extends Component {
           {/* <Route path="/contacts" component={ContactsPage} /> */}
           <Redirect to="/" />
         </Switch>
-      </Container>
+      </>
     );
   }
 }

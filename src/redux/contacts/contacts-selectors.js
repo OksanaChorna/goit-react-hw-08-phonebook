@@ -18,18 +18,4 @@ const getFilteredContact = createSelector(
   },
 );
 
-// const getFilteredContact = state => {
-//   const contacts = getAllContacts(state);
-//   const filter = getFilter(state);
-
-//   const normalizedFilter = filter.toLowerCase();
-
-//   if (filter) {
-//     return contacts.filter(contact =>
-//       contact.name.toLowerCase().includes(normalizedFilter),
-//     );
-//   }
-//   return contacts;
-// };
-
 export default { getFilter, getFilteredContact, getAllContacts };

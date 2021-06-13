@@ -1,9 +1,54 @@
+// /* eslint-disable import/no-anonymous-default-export */
+// import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+// import logger from 'redux-logger';
+// import {
+//   // persistStore,
+//   // persistReducer,
+//   FLUSH,
+//   REHYDRATE,
+//   PAUSE,
+//   PERSIST,
+//   PURGE,
+//   REGISTER,
+// } from 'redux-persist';
+// // import storage from 'redux-persist/lib/storage';
+// import { contactsReducer } from '../redux/contacts';
+
+// const middleware = [
+//   ...getDefaultMiddleware({
+//     serializableCheck: {
+//       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//     },
+//   }),
+//   logger,
+// ];
+
+// // const contactsPersistConfig = {
+// //   key: 'contacts',
+// //   storage,
+// //   blacklist: ['filter'],
+// // };
+
+// const store = configureStore({
+//   reducer: {
+//     contacts: contactsReducer,
+//     //contacts: persistReducer(contactsPersistConfig, contactsReducer ),
+//   },
+//   middleware,
+//   devToolss: process.env.NODE_ENV === 'development',
+// });
+
+// // const persistor = persistStore(store);
+
+// // export default { store, persistor };
+// export default store;
+
 /* eslint-disable import/no-anonymous-default-export */
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import {
-  // persistStore,
-  // persistReducer,
+  persistStore,
+  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -11,8 +56,9 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-// import storage from 'redux-persist/lib/storage';
-import { contactsReducer } from '../redux/contacts';
+import storage from 'redux-persist/lib/storage';
+import { authReducer } from '../redux/auth';
+// import { contactsReducer } from '../redux/contacts';
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -23,22 +69,21 @@ const middleware = [
   logger,
 ];
 
-// const contactsPersistConfig = {
-//   key: 'contacts',
-//   storage,
-//   blacklist: ['filter'],
-// };
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['token'],
+};
 
 const store = configureStore({
   reducer: {
-    contacts: contactsReducer,
-    //contacts: persistReducer(contactsPersistConfig, contactsReducer ),
+    // contacts: contactsReducer,
+    auth: persistReducer(authPersistConfig, authReducer),
   },
   middleware,
   devToolss: process.env.NODE_ENV === 'development',
 });
 
-// const persistor = persistStore(store);
+const persistor = persistStore(store);
 
-// export default { store, persistor };
-export default store;
+export default { store, persistor };

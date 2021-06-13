@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#toolbar-menu li a.active {
+  color: rgb(255 197 68);
+}

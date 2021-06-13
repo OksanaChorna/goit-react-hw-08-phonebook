@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import { Button, Container } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -25,24 +25,26 @@ const AppBarComp = () => {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
-          <Typography
-            variant="h6"
-            color="inherit"
-            className={classes.title}
-            component={NavLink}
-            exact
-            to="/"
-          >
-            Main
-          </Typography>
-          <Button color="inherit" component={NavLink} exact to="/register">
-            Registration
-          </Button>
-          <Button color="inherit" component={NavLink} exact to="/login">
-            Login
-          </Button>
-        </Toolbar>
+        <Container maxWidth="lg">
+          <Toolbar id="toolbar-menu">
+            <Typography
+              variant="h6"
+              color="inherit"
+              className={classes.title}
+              component={NavLink}
+              exact
+              to="/"
+            >
+              Main
+            </Typography>
+            <Button color="inherit" component={NavLink} exact to="/register">
+              Registration
+            </Button>
+            <Button color="inherit" component={NavLink} exact to="/login">
+              Login
+            </Button>
+          </Toolbar>
+        </Container>
       </AppBar>
     </div>
   );

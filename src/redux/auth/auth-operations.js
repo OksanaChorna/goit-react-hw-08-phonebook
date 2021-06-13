@@ -15,19 +15,32 @@ import {
   getCurrentUserError,
 } from './auth-actions';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 const token = {};
 
-const register = credantials => async dispatch => {
+const register = credentials => async dispatch => {
   dispatch(registerRequest());
 
   try {
-    const response = await axios.post('/users/signup', credantials);
+    const response = await axios.post('/users/signup', credentials);
 
     dispatch(registerSuccess(response.data));
   } catch (error) {
-    dispatch(registerError(error));
+    dispatch(registerError(error.message));
   }
 };
-export default { token, register };
+
+const logIn = credentials => async dispatch => {
+  dispatch(loginRequest());
+
+  try {
+    const response = await axios.post('/users/login', credentials);
+
+    dispatch(loginSuccess(response.data));
+  } catch (error) {
+    dispatch(loginError(error.message));
+  }
+};
+
+export default { token, register, logIn };
