@@ -5,6 +5,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Button, Container } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
+import UserMenu from '../UserMenu';
+import AuthNav from '../AuthNav';
+import { authSelectors } from '../../redux/auth';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const AppBarComp = () => {
+const AppBarComp = ({ isAuthenticated }) => {
   const classes = useStyles();
 
   return (
@@ -37,12 +41,17 @@ const AppBarComp = () => {
             >
               Main
             </Typography>
-            <Button color="inherit" component={NavLink} exact to="/register">
-              Registration
-            </Button>
-            <Button color="inherit" component={NavLink} exact to="/login">
-              Login
-            </Button>
+            <Typography
+              variant="h6"
+              color="inherit"
+              className={classes.title}
+              component={NavLink}
+              exact
+              to="/contacts"
+            >
+              PhoneBook
+            </Typography>
+            {isAuthenticated ? <UserMenu /> : <AuthNav />}
           </Toolbar>
         </Container>
       </AppBar>
@@ -50,4 +59,8 @@ const AppBarComp = () => {
   );
 };
 
-export default AppBarComp;
+const mapStateToProps = state => ({
+  isAuthenticated: authSelectors.getIsAuthenticated(state),
+});
+
+export default connect(mapStateToProps)(AppBarComp);
