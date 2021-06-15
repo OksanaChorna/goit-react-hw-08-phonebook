@@ -1,15 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { authOperations } from './redux/auth';
 import AppBarComp from './components/AppBar/AppBar';
-import HomePage from './pages/HomePage';
-import ContactsPage from './pages/ContactsPage';
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
 import PrivateRoute from './components/PrivateRoute';
 import PablicRoute from './components/PublicRoute';
 
+const HomePage = lazy(() =>
+  import('./pages/HomePage' /* webpackChunkName: "home-page" */),
+);
+const RegisterPage = lazy(() =>
+  import('./pages/RegisterPage' /* webpackChunkName: "register-page" */),
+);
+const LoginPage = lazy(() =>
+  import('./pages/LoginPage' /* webpackChunkName: "login-page" */),
+);
+const ContactsPage = lazy(() =>
+  import('./pages/ContactsPage' /* webpackChunkName: "contacts-page" */),
+);
 class App extends Component {
   componentDidMount() {
     this.props.onGetCurrentUser();
@@ -19,27 +27,29 @@ class App extends Component {
     return (
       <>
         <AppBarComp />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <PablicRoute
-            path="/register"
-            restricted
-            redirectTo="/contacts"
-            component={RegisterPage}
-          />
-          <PablicRoute
-            path="/login"
-            restricted
-            redirectTo="/contacts"
-            component={LoginPage}
-          />
-          <PrivateRoute
-            path="/contacts"
-            redirectTo="/login"
-            component={ContactsPage}
-          />
-          <Redirect to="/" />
-        </Switch>
+        <Suspense fallback={<p>Wait...</p>}>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <PablicRoute
+              path="/register"
+              restricted
+              redirectTo="/contacts"
+              component={RegisterPage}
+            />
+            <PablicRoute
+              path="/login"
+              restricted
+              redirectTo="/contacts"
+              component={LoginPage}
+            />
+            <PrivateRoute
+              path="/contacts"
+              redirectTo="/login"
+              component={ContactsPage}
+            />
+            <Redirect to="/" />
+          </Switch>
+        </Suspense>
       </>
     );
   }
