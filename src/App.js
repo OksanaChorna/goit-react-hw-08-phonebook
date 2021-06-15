@@ -8,6 +8,7 @@ import ContactsPage from './pages/ContactsPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import PrivateRoute from './components/PrivateRoute';
+import PablicRoute from './components/PublicRoute';
 
 class App extends Component {
   componentDidMount() {
@@ -20,8 +21,18 @@ class App extends Component {
         <AppBarComp />
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route path="/register" component={RegisterPage} />
-          <Route path="/login" component={LoginPage} />
+          <PablicRoute
+            path="/register"
+            restricted
+            redirectTo="/contacts"
+            component={RegisterPage}
+          />
+          <PablicRoute
+            path="/login"
+            restricted
+            redirectTo="/contacts"
+            component={LoginPage}
+          />
           <PrivateRoute
             path="/contacts"
             redirectTo="/login"

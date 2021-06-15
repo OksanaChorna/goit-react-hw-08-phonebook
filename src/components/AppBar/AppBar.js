@@ -41,16 +41,20 @@ const AppBarComp = ({ isAuthenticated }) => {
             >
               Main
             </Typography>
-            <Typography
-              variant="h6"
-              color="inherit"
-              className={classes.title}
-              component={NavLink}
-              exact
-              to="/contacts"
-            >
-              PhoneBook
-            </Typography>
+
+            {isAuthenticated && (
+              <Typography
+                variant="h6"
+                color="inherit"
+                className={classes.title}
+                component={NavLink}
+                exact
+                to="/contacts"
+              >
+                PhoneBook
+              </Typography>
+            )}
+
             {isAuthenticated ? <UserMenu /> : <AuthNav />}
           </Toolbar>
         </Container>
