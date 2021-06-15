@@ -12,10 +12,10 @@ code {
     monospace;
 }
 
-#toolbar-menu li a.active {
+#toolbar-menu a.active {
   color: rgb(255 197 68);
 }
 
-a .active {
+/* a .active {
   color: aqua;
-}
+} */
