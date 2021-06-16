@@ -58,11 +58,14 @@ class LoginPage extends Component {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={styles.paper}>
-          <Avatar className={styles.avatar}>
+          <Avatar
+            className={styles.avatar}
+            style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 20 }}
+          >
             <LockOpenIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Sign in
           </Typography>
           <form className={styles.form} noValidate onSubmit={this.handleSubmit}>
             <Grid container spacing={2}>
